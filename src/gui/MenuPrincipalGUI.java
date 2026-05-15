@@ -8,11 +8,11 @@ public class MenuPrincipalGUI extends JFrame {
     public MenuPrincipalGUI() {
         setTitle("Sistema Veterinário - Fatec");
         setSize(400, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Encerra o programa ao fechar o menu
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Painel principal com bordas para dar um respiro
+
         JPanel painelFundo = new JPanel(new BorderLayout(15, 15));
         painelFundo.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
@@ -21,7 +21,7 @@ public class MenuPrincipalGUI extends JFrame {
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
         painelFundo.add(lblTitulo, BorderLayout.NORTH);
 
-        // Painel para organizar os botões em lista (GridLayout)
+        // Painel para organizar os botões em lista
         JPanel painelBotoes = new JPanel(new GridLayout(6, 1, 10, 15));
 
         JButton btnClientes = new JButton("Cadastro de Clientes");
@@ -31,7 +31,7 @@ public class MenuPrincipalGUI extends JFrame {
         JButton btnRelatorios = new JButton("Gerar Relatórios");
         JButton btnSair = new JButton("Sair do Sistema");
 
-        // Melhorando a fonte dos botões
+        // So uma mexida nas fontes dos botoes, so visual
         Font fonteBotoes = new Font("Segoe UI", Font.PLAIN, 16);
         btnClientes.setFont(fonteBotoes);
         btnRacas.setFont(fonteBotoes);
@@ -41,7 +41,7 @@ public class MenuPrincipalGUI extends JFrame {
         btnSair.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSair.setForeground(new Color(220, 53, 69)); // Vermelho para o Sair
 
-        // Adicionando os botões ao painel
+        // add os botões ao painel
         painelBotoes.add(btnClientes);
         painelBotoes.add(btnRacas);
         painelBotoes.add(btnAnimais);
@@ -52,9 +52,9 @@ public class MenuPrincipalGUI extends JFrame {
         painelFundo.add(painelBotoes, BorderLayout.CENTER);
         add(painelFundo);
 
-        // --- AÇÕES DOS BOTÕES ---
+        // BOTOES
 
-        // Abrem as telas que já construímos
+        // Abrem as telas que ja existem
         btnClientes.addActionListener(e -> new ClienteGUI().setVisible(true));
         btnRacas.addActionListener(e -> new RacaGUI().setVisible(true));
 

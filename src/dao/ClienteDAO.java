@@ -13,7 +13,7 @@ public class ClienteDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    // Regra: Validar CPF
+    //teoricamente ele valida o cpf aq,
     private boolean isCpfValido(String cpf) {
         if (cpf == null) return false;
         cpf = cpf.replaceAll("\\D", "");
@@ -23,7 +23,7 @@ public class ClienteDAO {
 
     public void cadastrar(Cliente c) {
         if (!isCpfValido(c.getCpf())) throw new RuntimeException("CPF Inválido.");
-        if (c.getNome() == null || c.getNome().trim().isEmpty()) throw new RuntimeException("Nome é obrigatório."); // [cite: 48]
+        if (c.getNome() == null || c.getNome().trim().isEmpty()) throw new RuntimeException("Nome é obrigatório.");
 
         String sql = "INSERT INTO cliente (nome, cpf, data_nascimento, telefone, endereco, bairro, cidade, estado, cep, status) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -44,7 +44,7 @@ public class ClienteDAO {
     }
 
     public void alterar(Cliente c) {
-        if (!isCpfValido(c.getCpf())) throw new RuntimeException("CPF Inválido."); // [cite: 95]
+        if (!isCpfValido(c.getCpf())) throw new RuntimeException("CPF Inválido.");
 
         String sql = "UPDATE cliente SET nome=?, cpf=?, data_nascimento=?, telefone=?, endereco=?, bairro=?, cidade=?, estado=?, cep=? WHERE id_cliente=?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -64,7 +64,6 @@ public class ClienteDAO {
         }
     }
 
-    // Regra: Exclusão Lógica [cite: 100, 104, 105]
     public void excluirLogico(int idCliente) {
         String sql = "UPDATE cliente SET status = false WHERE id_cliente = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -90,8 +89,6 @@ public class ClienteDAO {
                     c.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
                 }
                 c.setTelefone(rs.getString("telefone"));
-
-                // As linhas abaixo foram adicionadas para resgatar os dados faltantes
                 c.setEndereco(rs.getString("endereco"));
                 c.setBairro(rs.getString("bairro"));
                 c.setCidade(rs.getString("cidade"));

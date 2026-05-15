@@ -13,7 +13,7 @@ public class RacaDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    // Regra: Não permitir raças duplicadas para o mesmo tipo de animal
+    // aq é pa Não permitir raças duplicadas para o mesmo tipo de animal
     private boolean racaExiste(String nomeRaca, String tipoAnimal) {
         String sql = "SELECT id_raca FROM raca WHERE nome_raca = ? AND tipo_animal = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -55,7 +55,6 @@ public class RacaDAO {
         }
     }
 
-    // Regra: Exclusão Lógica [cite: 100, 104, 105]
     public void excluirLogico(int idRaca) {
         String sql = "UPDATE raca SET status = false WHERE id_raca = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {

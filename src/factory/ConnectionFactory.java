@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    // A URL de conexão com o banco que criamos
+    // a conexao do banco
     private static final String URL = "jdbc:mysql://localhost:3306/clinica_veterinaria";
-    // O usuário padrão do MySQL geralmente é root
+    // nome padrao
     private static final String USER = "root";
-    // Coloque a sua senha do MySQL Workbench aqui!
+    // senha padrao(deixei a senha igual o usuario por enquanto manu, se achar bom trocar a gente troca, mas assim me parece mais pratico
     private static final String PASS = "root";
 
     public Connection getConnection() {

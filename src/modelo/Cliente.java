@@ -12,12 +12,10 @@ public class Cliente {
     private String cidade;
     private String estado;
     private String cep;
-    private boolean status = true; // Status padrão = ativo [cite: 49]
+    private boolean status = true;
 
-    // Construtor vazio
     public Cliente() {}
 
-    // Getters e Setters
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
     public String getNome() { return nome; }

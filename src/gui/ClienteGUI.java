@@ -36,7 +36,7 @@ public class ClienteGUI extends JFrame {
         JPanel painelFundo = new JPanel(new BorderLayout(10, 10));
         painelFundo.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // --- PAINEL DO FORMULÁRIO ---
+        // painel formulario
         JPanel painelForm = new JPanel(new GridBagLayout());
         painelForm.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Dados do Cliente"));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -77,7 +77,7 @@ public class ClienteGUI extends JFrame {
         gbc.gridx = 2; gbc.gridy = 4; gbc.weightx = 0; painelForm.add(new JLabel("CEP:"), gbc);
         gbc.gridx = 3; gbc.gridy = 4; gbc.weightx = 0.5; painelForm.add(txtCep, gbc);
 
-        // --- PAINEL DE BOTÕES ---
+        // painel dos botoes
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         btnSalvar = new JButton("Salvar Cadastro");
         btnSalvar.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -93,7 +93,7 @@ public class ClienteGUI extends JFrame {
         painelSuperior.add(painelBotoes, BorderLayout.SOUTH);
         painelFundo.add(painelSuperior, BorderLayout.NORTH);
 
-        // --- PAINEL DA TABELA ---
+        // painel tabela
         modeloTabela = new DefaultTableModel(new Object[]{"ID", "Nome", "CPF", "Telefone", "Bairro", "Cidade"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -109,19 +109,19 @@ public class ClienteGUI extends JFrame {
 
         add(painelFundo);
 
-        // --- MENU DE CONTEXTO (Botão Direito) ---
+        // aq é pra quando clicar com o botao direito, eu nao sabia muito bem oq por alem do botao de copiar
         JPopupMenu menuDireito = new JPopupMenu();
         JMenuItem itemCopiar = new JMenuItem("Copiar Dados");
         menuDireito.add(itemCopiar);
         itemCopiar.addActionListener(e -> copiarDadosDaLinha());
 
-        // --- EVENTOS DE CLIQUE (Limpeza Automática / Aviso) ---
+        // botao pra limpeza automatica etc
         tabela.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 int row = tabela.rowAtPoint(e.getPoint());
                 if (row == -1) {
-                    verificarAlteracoesELimpar(); // Clicou fora das linhas
+                    verificarAlteracoesELimpar();
                 } else if (SwingUtilities.isRightMouseButton(e)) {
                     tabela.setRowSelectionInterval(row, row);
                     menuDireito.show(e.getComponent(), e.getX(), e.getY());
@@ -136,7 +136,7 @@ public class ClienteGUI extends JFrame {
             }
         });
 
-        // --- EVENTOS GERAIS ---
+        // salvar, excluir e limpar
         btnSalvar.addActionListener(e -> salvarCliente());
         btnLimpar.addActionListener(e -> verificarAlteracoesELimpar());
         btnExcluir.addActionListener(e -> excluirCliente());
@@ -150,7 +150,7 @@ public class ClienteGUI extends JFrame {
         atualizarTabela();
     }
 
-    // --- MÉTODOS DE INTELIGÊNCIA DA INTERFACE ---
+    // aqui ele faz com que quando atualize uma informaçao e etente sair, ele perguntra se quer salvar
 
     private void verificarAlteracoesELimpar() {
         if (houveAlteracao()) {
@@ -160,9 +160,9 @@ public class ClienteGUI extends JFrame {
 
             if (resposta == JOptionPane.YES_OPTION) {
                 salvarCliente();
-                return; // O salvarCliente já chama o limparCampos no final
+                return; // esse é so para limpar quando faz o salvamento
             } else if (resposta == JOptionPane.CANCEL_OPTION || resposta == JOptionPane.CLOSED_OPTION) {
-                return; // Aborta a limpeza e continua onde estava
+                return;
             }
         }
         limparCampos();
@@ -198,8 +198,6 @@ public class ClienteGUI extends JFrame {
             clipboard.setContents(selection, null);
         }
     }
-
-    // --- MÉTODOS UTILITÁRIOS ---
 
     private JFormattedTextField criarMascara(String mascara) {
         try {
@@ -239,7 +237,7 @@ public class ClienteGUI extends JFrame {
         });
     }
 
-    // --- MÉTODOS DO BANCO DE DADOS (CRUD) ---
+    //aq é so pro banco, pra salvar
 
     private void salvarCliente() {
         try {
@@ -321,7 +319,7 @@ public class ClienteGUI extends JFrame {
             txtEstado.setText(c.getEstado() != null ? c.getEstado() : "");
             txtCep.setText(c.getCep() != null ? c.getCep() : "");
 
-            // Muda o botão para sinalizar a edição
+            // aq ele muda o botao quando tiver pra atualizar,do uma alteraçao visual pra ficar pratico/intuitivo
             btnSalvar.setText("Atualizar Cadastro");
         }
     }

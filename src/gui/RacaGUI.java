@@ -36,7 +36,7 @@ public class RacaGUI extends JFrame {
         JPanel painelFundo = new JPanel(new BorderLayout(10, 10));
         painelFundo.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // --- PAINEL DO FORMULÁRIO ---
+        // formulario
         JPanel painelForm = new JPanel(new GridBagLayout());
         painelForm.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Dados da Raça"));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -53,7 +53,7 @@ public class RacaGUI extends JFrame {
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0; painelForm.add(new JLabel("Tipo de Animal:"), gbc);
         gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1; painelForm.add(cbTipoAnimal, gbc);
 
-        // --- PAINEL DE BOTÕES ---
+        // parte dos botoes
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         btnSalvar = new JButton("Salvar Raça");
         btnSalvar.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -69,7 +69,7 @@ public class RacaGUI extends JFrame {
         painelSuperior.add(painelBotoes, BorderLayout.SOUTH);
         painelFundo.add(painelSuperior, BorderLayout.NORTH);
 
-        // --- PAINEL DA TABELA ---
+        // tabela
         modeloTabela = new DefaultTableModel(new Object[]{"ID", "Nome da Raça", "Tipo de Animal"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) { return false; }
@@ -82,13 +82,13 @@ public class RacaGUI extends JFrame {
 
         add(painelFundo);
 
-        // --- MENU DE CONTEXTO ---
+
         JPopupMenu menuDireito = new JPopupMenu();
         JMenuItem itemCopiar = new JMenuItem("Copiar Nome");
         menuDireito.add(itemCopiar);
         itemCopiar.addActionListener(e -> copiarDadosDaLinha());
 
-        // --- EVENTOS DE CLIQUE E DESSELEÇÃO ---
+        // clique e descelecao
         tabela.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -115,7 +115,6 @@ public class RacaGUI extends JFrame {
             if (!e.getValueIsAdjusting()) preencherFormulario();
         });
 
-        // --- FOCO INICIAL ---
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {

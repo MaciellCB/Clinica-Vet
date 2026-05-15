@@ -8,8 +8,8 @@ public class Animal {
     private String sexo;
     private String cor;
     private String observacoes;
-    private int idCliente; // FK [cite: 66]
-    private int idRaca;    // FK [cite: 67]
+    private int idCliente;
+    private int idRaca;
     private boolean status = true;
 
     public Animal() {}

@@ -3,7 +3,7 @@ package modelo;
 public class Raca {
     private int idRaca;
     private String nomeRaca;
-    private String tipoAnimal; // "Cachorro" ou "Gato" [cite: 54]
+    private String tipoAnimal; // Cachorro ou Gato
     private boolean status = true;
 
     public Raca() {}
