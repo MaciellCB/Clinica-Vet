@@ -58,13 +58,8 @@ public class MenuPrincipalGUI extends JFrame {
         btnClientes.addActionListener(e -> new ClienteGUI().setVisible(true));
         btnRacas.addActionListener(e -> new RacaGUI().setVisible(true));
         btnAnimais.addActionListener(e -> new AnimalGUI().setVisible(true));
-
-        // Telas pendentes (apenas mostram aviso)
-                btnConsultas.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "em breve.", "Em desenvolvimento", JOptionPane.INFORMATION_MESSAGE));
-
-        btnRelatorios.addActionListener(e ->
-                JOptionPane.showMessageDialog(this, "em breve.", "Em desenvolvimento", JOptionPane.INFORMATION_MESSAGE));
+        btnConsultas.addActionListener(e -> new ConsultaGUI().setVisible(true));
+        btnRelatorios.addActionListener(e -> new RelatorioGUI().setVisible(true));
 
         // Fecha a aplicação
         btnSair.addActionListener(e -> System.exit(0));

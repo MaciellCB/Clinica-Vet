@@ -1,6 +1,7 @@
+package gui;
+
 import gui.MenuPrincipalGUI;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,8 +13,9 @@ public class Main {
         }
 
         SwingUtilities.invokeLater(() -> {
-            // Abre o Menu Principal ao iniciar o sistema
-            new MenuPrincipalGUI().setVisible(true);
+            // Abre o menu principal ao iniciar o sistema
+            MenuPrincipalGUI menu = new MenuPrincipalGUI();
+            menu.setVisible(true);
         });
     }
 }
