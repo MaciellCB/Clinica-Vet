@@ -1,5 +1,6 @@
 package modelo;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Animal {
     private int idAnimal;
@@ -11,8 +12,15 @@ public class Animal {
     private int idCliente;
     private int idRaca;
     private boolean status = true;
+    private String nomeCliente;
+    private String nomeRaca;
 
     public Animal() {}
+
+    public int getIdade() {
+        if (dataNascimento == null) return 0;
+        return Period.between(dataNascimento, LocalDate.now()).getYears();
+    }
 
     public int getIdAnimal() { return idAnimal; }
     public void setIdAnimal(int idAnimal) { this.idAnimal = idAnimal; }
@@ -32,4 +40,8 @@ public class Animal {
     public void setIdRaca(int idRaca) { this.idRaca = idRaca; }
     public boolean isStatus() { return status; }
     public void setStatus(boolean status) { this.status = status; }
+    public String getNomeCliente() { return nomeCliente; }
+    public void setNomeCliente(String nomeCliente) { this.nomeCliente = nomeCliente; }
+    public String getNomeRaca() { return nomeRaca; }
+    public void setNomeRaca(String nomeRaca) { this.nomeRaca = nomeRaca; }
 }
