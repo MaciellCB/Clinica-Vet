@@ -10,6 +10,7 @@ public class ConnectionFactory {
     // nome padrao
     private static final String USER = "root";
     // senha padrao(deixei a senha igual o usuario por enquanto manu, se achar bom trocar a gente troca, mas assim me parece mais pratico
+    // acho que vou ter que mudar minha senha pra 'root' ent
     private static final String PASS = "root";
 
     public Connection getConnection() {

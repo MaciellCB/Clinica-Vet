@@ -32,9 +32,9 @@ public class RelatorioGUI extends JFrame {
     };
 
     private static final String[] TIPOS = {
-            "7.1 - Todos os Clientes e seus Animais",
-            "7.2 - Animais Aniversariantes por Mês",
-            "7.3 - Clientes Aniversariantes por Mês"
+            "Clientes e seus Animais",
+            "Animais Aniversariantes por Mês",
+            "Clientes Aniversariantes por Mês"
     };
 
     public RelatorioGUI() {
