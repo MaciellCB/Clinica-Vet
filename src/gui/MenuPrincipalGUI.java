@@ -39,7 +39,7 @@ public class MenuPrincipalGUI extends JFrame {
         btnConsultas.setFont(fonteBotoes);
         btnRelatorios.setFont(fonteBotoes);
         btnSair.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        btnSair.setForeground(new Color(220, 53, 69)); // Vermelho para o Sair
+        btnSair.setForeground(new Color(220, 53, 69)); 
 
         // add os botões ao painel
         painelBotoes.add(btnClientes);

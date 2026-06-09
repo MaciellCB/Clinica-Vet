@@ -19,7 +19,8 @@ import java.util.List;
 
 public class AnimalGUI extends JFrame {
 
-    private JTextField txtNome, txtDataNascimento, txtCor, txtObservacoes;
+    private JTextField txtNome, txtCor, txtObservacoes;
+    private JFormattedTextField txtDataNascimento; 
     private JComboBox<String> cbSexo;
     private JComboBox<Cliente> cbCliente;
     private JComboBox<Raca> cbRaca;
@@ -58,7 +59,7 @@ public class AnimalGUI extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         txtNome           = new JTextField();
-        txtDataNascimento = new JTextField(10);
+        txtDataNascimento = criarMascara("##/##/####"); // Usando a máscara
         txtCor            = new JTextField();
         txtObservacoes    = new JTextField();
         cbSexo            = new JComboBox<>(new String[]{"M", "F"});
@@ -66,8 +67,6 @@ public class AnimalGUI extends JFrame {
         // Só letras no nome e na cor
         setApenasLetras(txtNome);
         setApenasLetras(txtCor);
-
-        txtDataNascimento.setToolTipText("dd/MM/aaaa");
 
         cbCliente = new JComboBox<>();
         carregarClientes();
@@ -183,13 +182,16 @@ public class AnimalGUI extends JFrame {
             a.setIdCliente(((Cliente) cbCliente.getSelectedItem()).getIdCliente());
             a.setIdRaca(((Raca) cbRaca.getSelectedItem()).getIdRaca());
 
-            // Data de nascimento opcional
-            String dataTexto = txtDataNascimento.getText().trim();
+            // Remove a máscara e checa se o usuário digitou algo
+            String dataTexto = txtDataNascimento.getText().replace("_", "").replace("/", "").trim();
             if (!dataTexto.isEmpty()) {
+                if (dataTexto.length() < 8) {
+                    throw new RuntimeException("Data de nascimento incompleta.");
+                }
                 try {
-                    a.setDataNascimento(LocalDate.parse(dataTexto, FMT));
+                    a.setDataNascimento(LocalDate.parse(txtDataNascimento.getText(), FMT));
                 } catch (DateTimeParseException ex) {
-                    throw new RuntimeException("Data inválida. Use o formato dd/MM/aaaa.");
+                    throw new RuntimeException("Data inválida. Verifique se o dia e mês estão corretos.");
                 }
             }
 
@@ -263,7 +265,7 @@ public class AnimalGUI extends JFrame {
         if (a.getDataNascimento() != null)
             txtDataNascimento.setText(a.getDataNascimento().format(FMT));
         else
-            txtDataNascimento.setText("");
+            txtDataNascimento.setValue(null); // Reseta a máscara
 
         for (int i = 0; i < cbCliente.getItemCount(); i++) {
             if (cbCliente.getItemAt(i).getIdCliente() == a.getIdCliente()) {
@@ -336,7 +338,7 @@ public class AnimalGUI extends JFrame {
     private void limparCampos() {
         idAnimalSelecionado = -1;
         txtNome.setText("");
-        txtDataNascimento.setText("");
+        txtDataNascimento.setValue(null); // Reseta a máscara corretamente
         txtCor.setText("");
         txtObservacoes.setText("");
         cbSexo.setSelectedIndex(0);
@@ -366,5 +368,16 @@ public class AnimalGUI extends JFrame {
                     super.replace(fb, offset, length, text, attrs);
             }
         });
+    }
+    
+    // Método para criar a máscara de data
+    private JFormattedTextField criarMascara(String mascara) {
+        try {
+            MaskFormatter mf = new MaskFormatter(mascara);
+            mf.setPlaceholderCharacter('_');
+            return new JFormattedTextField(mf);
+        } catch (Exception e) {
+            return new JFormattedTextField();
+        }
     }
 }

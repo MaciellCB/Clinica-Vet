@@ -92,7 +92,7 @@ public class ConsultaGUI extends JFrame {
         btnBuscar.addActionListener(e -> realizarBusca());
         btnLimpar.addActionListener(e -> limpar());
 
-        // Enter no campo de texto dispara a busca
+        // Enter no campo de texto faz a busca
         txtFiltro.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {

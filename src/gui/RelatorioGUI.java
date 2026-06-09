@@ -5,9 +5,9 @@ import dao.RelatorioDAO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -49,41 +49,55 @@ public class RelatorioGUI extends JFrame {
         JPanel painelFundo = new JPanel(new BorderLayout(10, 10));
         painelFundo.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // painel de opções
+        // --- PAINEL DE OPÇÕES ---
         JPanel painelOpcoes = new JPanel(new GridBagLayout());
         painelOpcoes.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Opções do Relatório"));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(8, 10, 8, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // aq é so pra nao ficar esticado os botoes em cima
+        gbc.fill = GridBagConstraints.NONE; 
+        gbc.anchor = GridBagConstraints.WEST; 
 
         cbTipoRelatorio = new JComboBox<>(TIPOS);
         cbMes           = new JComboBox<>(MESES);
         lblMes          = new JLabel("Mês:");
         btnGerar        = new JButton("Gerar Relatório");
         btnSalvar       = new JButton("Salvar como .txt");
+        
         btnGerar.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        btnSalvar.setEnabled(false); // só habilita depois de gerar
+        btnSalvar.setEnabled(false);
 
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
+        // Linha 1: Tipo de Relatório
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0; 
         painelOpcoes.add(new JLabel("Tipo:"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1; gbc.gridwidth = 3;
+        
+        gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 1; 
         painelOpcoes.add(cbTipoRelatorio, gbc);
-        gbc.gridwidth = 1;
 
+        // Linha 2: Mês (Ficará oculta por padrão)
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
         painelOpcoes.add(lblMes, gbc);
-        gbc.gridx = 1; gbc.weightx = 0;
+        
+        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1; 
         painelOpcoes.add(cbMes, gbc);
-        gbc.gridx = 2; painelOpcoes.add(btnGerar, gbc);
-        gbc.gridx = 3; painelOpcoes.add(btnSalvar, gbc);
+
+        // Linha 3: Botões 
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        painelBotoes.add(btnGerar);
+        painelBotoes.add(Box.createRigidArea(new Dimension(15, 0))); 
+        painelBotoes.add(btnSalvar);
+
+        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2; gbc.weightx = 1; 
+        painelOpcoes.add(painelBotoes, gbc);
 
         lblMes.setVisible(false);
         cbMes.setVisible(false);
 
         painelFundo.add(painelOpcoes, BorderLayout.NORTH);
 
-        // tabela pra dar um preview
+        // --- TABELA DE PRÉVIA ---
         modeloTabela = new DefaultTableModel(0, 0) {
             @Override
             public boolean isCellEditable(int row, int column) { return false; }
@@ -96,7 +110,7 @@ public class RelatorioGUI extends JFrame {
                 BorderFactory.createEtchedBorder(), "Prévia do Relatório"));
         painelFundo.add(scrollTabela, BorderLayout.CENTER);
 
-        // rodapé
+        // --- RODAPÉ ---
         lblResultado = new JLabel(" ");
         lblResultado.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         lblResultado.setForeground(new Color(80, 80, 80));
@@ -105,7 +119,7 @@ public class RelatorioGUI extends JFrame {
 
         add(painelFundo);
 
-
+        // --- EVENTOS ---
         cbTipoRelatorio.addActionListener(e -> {
             boolean precisaMes = cbTipoRelatorio.getSelectedIndex() > 0;
             lblMes.setVisible(precisaMes);
@@ -121,7 +135,6 @@ public class RelatorioGUI extends JFrame {
         btnSalvar.addActionListener(e -> salvarTxt());
     }
 
-
     private void gerarRelatorio() {
         try {
             int tipo = cbTipoRelatorio.getSelectedIndex();
@@ -134,14 +147,20 @@ public class RelatorioGUI extends JFrame {
                 case 0 -> {
                     cabecalhoAtual = new String[]{"Cliente", "CPF", "Animal", "Raça", "Nasc. Animal"};
                     dadosAtuais = relatorioDAO.relatorioClientesEAnimais();
+                    
+                    for (String[] linha : dadosAtuais) linha[4] = formatarDataBrasil(linha[4]);
                 }
                 case 1 -> {
                     cabecalhoAtual = new String[]{"Animal", "Cliente", "Telefone", "Nascimento"};
                     dadosAtuais = relatorioDAO.relatorioAnimaisAniversariantes(mes);
+                   
+                    for (String[] linha : dadosAtuais) linha[3] = formatarDataBrasil(linha[3]);
                 }
                 case 2 -> {
                     cabecalhoAtual = new String[]{"Nome", "CPF", "Nascimento", "Telefone"};
                     dadosAtuais = relatorioDAO.relatorioClientesAniversariantes(mes);
+                   
+                    for (String[] linha : dadosAtuais) linha[2] = formatarDataBrasil(linha[2]);
                 }
                 default -> { return; }
             }
@@ -185,8 +204,8 @@ public class RelatorioGUI extends JFrame {
 
         try (FileWriter fw = new FileWriter(arquivo)) {
             String titulo = TIPOS[cbTipoRelatorio.getSelectedIndex()];
-            String separador = "=".repeat(80);
-            String subSep    = "-".repeat(80);
+            String separador = "=".repeat(100);
+            String subSep    = "-".repeat(100);
 
             fw.write(separador + "\n");
             fw.write("  SISTEMA VETERINÁRIO - FATEC\n");
@@ -221,15 +240,30 @@ public class RelatorioGUI extends JFrame {
         }
     }
 
+    // aqui achei melhor formatar de YYYY-MM-DD para DD/MM/YYYY
+    private String formatarDataBrasil(String dataIso) {
+        if (dataIso == null || dataIso.equals("-")) return "-";
+        try {
+            LocalDate data = LocalDate.parse(dataIso);
+            return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (Exception e) {
+            return dataIso; // Se der algum erro de parse, retorna como estava
+        }
+    }
+
     // formata um array de strings em colunas de largura fixa para o .txt
     private String formatarLinha(String[] campos) {
-        int[] larguras = {25, 18, 20, 15};
+        // Ajustado para comportar até 5 colunas com tamanhos melhores
+        int[] larguras = {25, 15, 20, 20, 15};
         StringBuilder sb = new StringBuilder();
+        
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i] != null ? campos[i] : "-";
-            int largura  = i < larguras.length ? larguras[i] : 20;
-            // Trunca se passar da largura
+            int largura  = i < larguras.length ? larguras[i] : 15;
+            
+            // Trunca se passar da largura para não quebrar a tabela do .txt
             if (valor.length() > largura) valor = valor.substring(0, largura - 1) + ".";
+            
             sb.append(String.format("%-" + largura + "s", valor));
             if (i < campos.length - 1) sb.append(" | ");
         }
