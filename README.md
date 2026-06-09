@@ -22,17 +22,19 @@ Sistema desktop em Java para cadastro de clientes e seus animais (cachorros e ga
 
 ## 📁 Estrutura do Projeto
 
-\`\`\`text
+```text
 /
 ├── diagramas/                   # Imagens dos diagramas do banco e UML
+├── lib/                         # Bibliotecas externas (MySQL JDBC)
 ├── src/   
-│   ├── dao/                     # Data Access Objects para persistência no banco
-│   ├── factory/                 # Factory para conexões com MySQL via JDBC
-│   ├── gui/                     # Pacote de Interfaces gráficas e Main.java
+│   ├── dao/                     # Data Access Objects para persistência
+│   ├── factory/                 # Factory para conexão com MySQL
+│   ├── gui/                     # Interfaces gráficas e Main.java
 │   └── modelo/                  # Classes de modelo (entidades)
-├── telas                
-└── README.md
-\`\`\`
+├── telas/                       # Prints das telas para o manual
+├── README.md                    # Documentação do projeto
+├── relatorio.txt                # Exemplo de saída gerada pelo sistema
+└── Script.sql                   # Script de criação do banco de dados
 
 ## 📊 Diagramas
 
