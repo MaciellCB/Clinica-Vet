@@ -22,7 +22,7 @@ Sistema desktop em Java para cadastro de clientes e seus animais (cachorros e ga
 
 ## 📁 Estrutura do Projeto
 
-```text
+\`\`\`text
 /
 ├── diagramas/                   # Imagens dos diagramas do banco e UML
 ├── lib/                         # Bibliotecas externas (MySQL JDBC)
@@ -35,6 +35,7 @@ Sistema desktop em Java para cadastro de clientes e seus animais (cachorros e ga
 ├── README.md                    # Documentação do projeto
 ├── relatorio.txt                # Exemplo de saída gerada pelo sistema
 └── Script.sql                   # Script de criação do banco de dados
+\`\`\`
 
 ## 📊 Diagramas
 
