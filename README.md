@@ -4,14 +4,14 @@ Sistema desktop em Java para cadastro de clientes e seus animais (cachorros e ga
 
 ## 📋 Funcionalidades
 
--  Cadastrar, alterar e inativar Clientes (Exclusão Lógica)
--  Cadastrar, alterar e inativar Raças de Animais
--  Cadastrar, alterar e inativar Animais vinculados a um cliente e raça
--  Consultar Animais por Cliente (Pesquisa com filtros por Nome ou CPF)
--  Geração de Relatórios em formato `.txt`:
-  - Todos os clientes e seus animais
-  - Animais aniversariantes de um mês específico
-  - Clientes aniversariantes de um mês específico
+-  Cadastrar, alterar e inativar Clientes (Exclusão Lógica)
+-  Cadastrar, alterar e inativar Raças de Animais
+-  Cadastrar, alterar e inativar Animais vinculados a um cliente e raça
+-  Consultar Animais por Cliente (Pesquisa com filtros por Nome ou CPF)
+-  Geração de Relatórios em formato `.txt`:
+  - Todos os clientes e seus animais
+  - Animais aniversariantes de um mês específico
+  - Clientes aniversariantes de um mês específico
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -24,18 +24,18 @@ Sistema desktop em Java para cadastro de clientes e seus animais (cachorros e ga
 
 ```text
 /
-├── diagramas/                   # Imagens dos diagramas do banco e UML
-├── lib/                         # Bibliotecas externas (MySQL JDBC)
-├── src/   
-│   ├── dao/                     # Data Access Objects para persistência
-│   ├── factory/                 # Factory para conexão com MySQL
-│   ├── gui/                     # Interfaces gráficas e Main.java
-│   └── modelo/                  # Classes de modelo (entidades)
-├── telas/                       # Prints das telas para o manual
-├── README.md                    # Documentação do projeto
-├── relatorio.txt                # Exemplo de saída gerada pelo sistema
-└── Script.sql                   # Script de criação do banco de dados
-
+├── diagramas/                   # Imagens dos diagramas do banco e UML
+├── lib/                         # Bibliotecas externas (MySQL JDBC)
+├── src/   
+│   ├── dao/                     # Data Access Objects para persistência
+│   ├── factory/                 # Factory para conexão com MySQL
+│   ├── gui/                     # Interfaces gráficas e Main.java
+│   └── modelo/                  # Classes de modelo (entidades)
+├── telas/                       # Prints das telas para o manual
+├── README.md                    # Documentação do projeto
+├── relatorio.txt                # Exemplo de saída gerada pelo sistema
+└── Script.sql                   # Script de criação do banco de dados
+```
 ## 📊 Diagramas
 
 Abaixo estão os diagramas estruturais e de banco de dados do sistema:
@@ -84,7 +84,7 @@ Ponto central de navegação para acessar as telas de Clientes, Animais, Raças,
 > ![Tela de Clientes](telas/Tela_de_Clientes.png)
 
 **3. Raças (`RacaGUI`)**
-- **Cadastrar:** Adicione novas raças informando o nome e selecionando se pertencem a "Cachorro" ou "Gato". 
+- **Cadastrar:** Adicione novas raças informando o nome e selecionando se pertencem a "Cachorro" ou "Gato". 
 > ![Tela de Raças](telas/Cadastro_racas.png)
 
 **4. Animais (`AnimalGUI`)**
